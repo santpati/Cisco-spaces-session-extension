@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "Cisco Spaces Session Helper",
+    "version": "1.0",
+    "description": "Easily copy your Cisco Spaces session token for use in adoption tools.",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "scripting"
+    ],
+    "host_permissions": [
+        "https://dnaspaces.io/*",
+        "https://*.dnaspaces.io/*"
+    ],
+    "action": {
+        "default_popup": "src/popup/popup.html"
+    }
+}

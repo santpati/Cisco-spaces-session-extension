@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="popup.css">
+    <title>Cisco Spaces Helper</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h1>Cisco Spaces Helper</h1>
+            </div>
+            <div class="status-indicator" id="status-indicator">
+                <span class="dot"></span>
+                <span id="status-text">Checking...</span>
+            </div>
+        </header>
+
+        <main>
+            <div id="loading" class="state-view">
+                <div class="spinner"></div>
+                <p>Scanning active session...</p>
+            </div>
+
+            <div id="no-token" class="state-view hidden">
+                <div class="icon-circle error">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                        <line x1="12" y1="2" x2="12" y2="12"></line>
+                    </svg>
+                </div>
+                <h3>No Active Session Found</h3>
+                <p>Please log in to <a href="https://dnaspaces.io" target="_blank">dnaspaces.io</a> in another tab.</p>
+                <button id="open-spaces" class="btn secondary">Open Cisco Spaces</button>
+            </div>
+
+            <div id="token-found" class="state-view hidden">
+                <div class="token-card">
+                    <label>SYS-TOKEN FOUND</label>
+                    <div class="token-preview">
+                        <code id="token-display">eyJhbGciOiJIUzI...</code>
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <button id="copy-btn" class="btn primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        Copy Token
+                    </button>
+                </div>
+                <p class="success-msg hidden" id="copy-success">Copied to clipboard!</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Version 1.0 • Cisco Spaces Extension</p>
+        </footer>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
