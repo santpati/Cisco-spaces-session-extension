@@ -22,24 +22,43 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 2. Check if we are on dnaspaces.io
     if (tab.url && (tab.url.includes('dnaspaces.io') || tab.url.includes('dnaspaces.cn') || tab.url.includes('dnaspaces.eu'))) {
-        // We are on the site, try to inject script to read local storage
+        // We are on the site, try to inject script to read local storage & session storage
         try {
             const result = await chrome.scripting.executeScript({
                 target: { tabId: tab.id },
                 func: () => {
-                    return localStorage.getItem('sys_token') || localStorage.getItem('sys-token') || localStorage.getItem('token') || localStorage.getItem('sysToken');
+                    const keys = ['sys_token', 'sys-token', 'sysToken', 'token', 'access_token'];
+                    // Check LocalStorage
+                    for (const key of keys) {
+                        if (localStorage.getItem(key)) return localStorage.getItem(key);
+                    }
+                    // Check SessionStorage
+                    for (const key of keys) {
+                        if (sessionStorage.getItem(key)) return sessionStorage.getItem(key);
+                    }
+                    return null;
                 }
             });
 
-            const token = result[0]?.result;
+            const scriptToken = result[0]?.result;
+            if (scriptToken) {
+                handleTokenFound(scriptToken);
+                return;
+            }
 
-            if (token) {
-                handleTokenFound(token);
+            // Fallback: Check Cookies
+            const cookies = await chrome.cookies.getAll({ domain: new URL(tab.url).hostname });
+            const tokenCookie = cookies.find(c =>
+                ['sys_token', 'sys-token', 'sysToken', 'token'].some(k => c.name.includes(k))
+            );
+
+            if (tokenCookie) {
+                handleTokenFound(tokenCookie.value);
             } else {
                 handleNoToken();
             }
         } catch (e) {
-            console.error(e);
+            console.error("Token detection error:", e);
             handleNoToken();
         }
     } else {
