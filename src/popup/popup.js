@@ -26,7 +26,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
             const result = await chrome.scripting.executeScript({
                 target: { tabId: tab.id },
-                func: () => localStorage.getItem('sys_token')
+                func: () => {
+                    return localStorage.getItem('sys_token') || localStorage.getItem('sys-token') || localStorage.getItem('token') || localStorage.getItem('sysToken');
+                }
             });
 
             const token = result[0]?.result;
