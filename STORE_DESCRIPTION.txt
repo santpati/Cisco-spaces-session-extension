@@ -1,0 +1,20 @@
+CISCO SPACES SESSION EXTENSION
+
+A browser extension to seamlessly extract and share your active Cisco Spaces session token (sys-token) with authorized adoption tools and dashboards.
+
+FEATURES
+
+• Auto-Detection: Instantly detects if you are logged into dnaspaces.io (active tab or background tab).
+• One-Click Copy: Copy your sys-token to the clipboard with a single click.
+• Secure: Runs entirely in your browser. No data is sent to external servers.
+
+USAGE
+
+1. Log in to Cisco Spaces (dnaspaces.io).
+2. Click the extension icon in your browser toolbar.
+3. If an active session is found, your token will be displayed.
+4. Click "Copy Token" to use it in other tools.
+
+PRIVACY POLICY
+
+We do not collect, store, or transmit any personal data. The extension only reads your session token locally to display it to you.
