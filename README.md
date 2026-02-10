@@ -3,7 +3,7 @@
 A browser extension to seamlessly extract and share your active Cisco Spaces session token (`sys-token`) with authorized adoption tools and dashboards.
 
 <div align="center">
-  <img src="icons/icon128.png" alt="Cisco Spaces Helper" width="128" onerror="this.src='https://via.placeholder.com/128?text=Icon'"/>
+  <img src="icons/icon128.jpg" alt="Cisco Spaces Helper" width="128" onerror="this.src='https://via.placeholder.com/128?text=Icon'"/>
 </div>
 
 ## Features
