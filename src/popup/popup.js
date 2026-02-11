@@ -28,13 +28,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                 target: { tabId: tab.id },
                 func: () => {
                     const keys = ['sys_token', 'sys-token', 'sysToken', 'token', 'access_token'];
-                    // Check LocalStorage
+
+                    // Iterate keys by priority
                     for (const key of keys) {
-                        if (localStorage.getItem(key)) return localStorage.getItem(key);
-                    }
-                    // Check SessionStorage
-                    for (const key of keys) {
-                        if (sessionStorage.getItem(key)) return sessionStorage.getItem(key);
+                        // Check LocalStorage first for this key
+                        const lsVal = localStorage.getItem(key);
+                        if (lsVal) return lsVal;
+
+                        // Then Check SessionStorage for the SAME key
+                        // This ensures we prefer 'sys_token' (in SS) over 'token' (in LS)
+                        const ssVal = sessionStorage.getItem(key);
+                        if (ssVal) return ssVal;
                     }
                     return null;
                 }
@@ -71,7 +75,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const result = await chrome.scripting.executeScript({
                     target: { tabId: tabs[0].id },
                     func: () => {
-                        return localStorage.getItem('sys_token') || localStorage.getItem('sys-token') || localStorage.getItem('token') || localStorage.getItem('sysToken');
+                        const keys = ['sys_token', 'sys-token', 'sysToken', 'token', 'access_token'];
+                        for (const key of keys) {
+                            if (localStorage.getItem(key)) return localStorage.getItem(key);
+                            if (sessionStorage.getItem(key)) return sessionStorage.getItem(key);
+                        }
+                        return null;
                     }
                 });
 

@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Cisco Spaces Session Helper",
-    "version": "1.0",
+    "version": "1.1",
     "description": "Easily copy your Cisco Spaces session token for use in adoption tools.",
     "permissions": [
         "activeTab",
